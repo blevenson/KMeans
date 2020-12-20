@@ -47,11 +47,12 @@ class KMeans:
 
             # Update vals
             for node_i, sums in nodes_sum.items():
-                old_val = self.nodes[node_i]
+                old_val = self.nodes[node_i].copy()
                 for j in range(len(self.nodes[node_i])):
                     self.nodes[node_i][j] = sums[j] / nodes_count[node_i]
                 
-                amount_change = max(amount_change, self.compute_dist(old_val, self.nodes[node_i]))
+                delta_change = self.compute_dist(old_val, self.nodes[node_i]) 
+                amount_change = max(amount_change, delta_change)
 
             print("Iteration: %d, amount change: %d" % (iteration, amount_change))
 
@@ -85,7 +86,7 @@ class KMeans:
 
         dist = 0
         for i in range(len(vec1)):
-            dist += (vec1[i] - vec2[i]) ** 2
+            dist += (int(vec1[i]) - int(vec2[i])) ** 2
 
         return dist
 
