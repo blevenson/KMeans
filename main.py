@@ -36,5 +36,7 @@ def main():
 
     img.save_image(img_bytes, output_image)
     
+    print("Reduced image from %d to %d colors" % (img.get_unique_colors(), K_val))
+
 if __name__ == "__main__":
     main()

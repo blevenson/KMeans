@@ -25,3 +25,13 @@ class Image:
     # given updated byte array, save image
     def save_image(self, data, out_filename):
         mpimg.imsave(out_filename, np.reshape(data, (self.height, self.width, 3)))
+
+    # return number of unique colors in image
+    def get_unique_colors(self):
+        unique_pixels = set()
+
+        for row in self.img:
+            for elm in row:
+                unique_pixels.add(tuple(elm))
+
+        return len(unique_pixels)
