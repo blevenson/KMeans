@@ -63,7 +63,7 @@ class KMeans:
         closest_point = 0
 
         for node in range(len(self.nodes)):
-            dist = self.compute_dist(self.nodes[node], X)
+            dist = self.compute_dist_squared(self.nodes[node], X)
 
             if dist < min_dist:
                 min_dist = dist
@@ -72,13 +72,16 @@ class KMeans:
         return closest_point
 
     def compute_dist(self, vec1, vec2):
+        return math.sqrt(self.compute_dist_squared(vec1, vec2))
+
+    def compute_dist_squared(self, vec1, vec2):
         assert(len(vec1) == len(vec2))
 
         dist = 0
         for i in range(len(vec1)):
             dist += (vec1[i] - vec2[i]) ** 2
 
-        return math.sqrt(dist)
+        return dist
 
     def get_node_index(self, node):
         for i in range(self.K):
