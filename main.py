@@ -27,7 +27,7 @@ def main():
 
     img = image.Image(input_image)
 
-    k_means_img = KMeans.KMeans(K=K_val, iters=10)
+    k_means_img = KMeans.KMeans(K=K_val, thresh=3, iters=10)
     img_bytes = img.get_byte_array()
     k_means_img.fit(img_bytes)
 

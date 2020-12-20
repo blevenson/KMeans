@@ -7,7 +7,7 @@ import random
 class KMeans:
     
     # input: K, number of nodes
-    def __init__(self, K, thresh = 0.01, iters=1):
+    def __init__(self, K, thresh = 1, iters=1):
         self.K = K
         self.nodes = []  # len = K
         self.threshold = thresh
@@ -56,7 +56,7 @@ class KMeans:
 
             print("Iteration: %d, amount change: %d" % (iteration, amount_change))
 
-            if amount_change < self.threshold or iteration >= self.num_iterations:
+            if amount_change <= self.threshold or iteration >= self.num_iterations:
                 print("Done training")
                 return
 
