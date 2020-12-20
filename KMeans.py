@@ -7,7 +7,7 @@ import random
 class KMeans:
     
     # input: K, number of nodes
-    def __init__(self, K, thresh = 0.01, iters=0):
+    def __init__(self, K, thresh = 0.01, iters=1):
         self.K = K
         self.nodes = []  # len = K
         self.threshold = thresh
@@ -27,8 +27,10 @@ class KMeans:
             self.nodes = random.sample(data, self.K) # grab K random items
 
         # Iterate until threshold is met
-        iteration = 0
+        iteration = 1
         while True:
+            amount_change = 0
+
             nodes_sum = {}
             nodes_count = {}
             
@@ -45,14 +47,18 @@ class KMeans:
 
             # Update vals
             for node_i, sums in nodes_sum.items():
+                old_val = self.nodes[node_i]
                 for j in range(len(self.nodes[node_i])):
                     self.nodes[node_i][j] = sums[j] / nodes_count[node_i]
- 
+                
+                amount_change = max(amount_change, self.compute_dist(old_val, self.nodes[node_i]))
 
-            if iteration > self.num_iterations:
-            #if amount_change < self.threshold:
+            print("Iteration: %d, amount change: %d" % (iteration, amount_change))
+
+            if amount_change < self.threshold or iteration >= self.num_iterations:
                 print("Done training")
                 return
+
             iteration += 1
 
     def predict(self, X):
